@@ -1,0 +1,9 @@
+{
+  "app": "notebook",
+  "graphics": "kitty",
+  "force_graphics": true,
+  "kernel": "python3",
+  "color_scheme": "default",
+  "syntax_theme": "gruvbox-dark"
+}
+

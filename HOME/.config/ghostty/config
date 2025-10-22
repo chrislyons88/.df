@@ -1,0 +1,26 @@
+background-opacity = 0.85
+background-blur-radius = 14
+
+window-padding-x = 8
+window-padding-balance = true
+
+font-family = MesloLGS NF
+font-size = 16
+theme = Gruvbox Dark
+
+macos-icon = custom-style
+macos-icon-frame = beige
+macos-icon-ghost-color = cc241d 
+macos-icon-screen-color = 282828
+# macos-titlebar-style=tabs
+
+# custom-shader = ./shaders/crt.glsl
+# custom-shader = ./shaders/tft.glsl
+# custom-shader = ./shaders/bloom.glsl
+# custom-shader = ./shaders/retro-terminal.glsl
+# custom-shader = ./shaders/in-game-crt.glsl
+
+keybind = cmd+alt+shift+up=resize_split:up,50
+keybind = cmd+alt+shift+down=resize_split:down,50
+keybind = cmd+alt+shift+left=resize_split:left,50
+keybind = cmd+alt+shift+right=resize_split:right,50
