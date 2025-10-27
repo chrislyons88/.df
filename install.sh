@@ -8,7 +8,8 @@ set -e
 # ========================
 REPO_URL="https://github.com/chrislyons88/.df.git"
 DOTFILES_DIR="$HOME/.df"
-BACKUP_DIR="$HOME/__existing_dotfiles_backup/$(date +%s)"
+BACKUP_DIR_BASE="$HOME/__existing_dotfiles_backup"
+BACKUP_DIR="$BACKUP_DIR_BASE=/$(date +%s)"
 
 # ========================
 # Dependency lists
@@ -191,6 +192,7 @@ common_post_install_steps() {
 backup_conflicts() {
   echo "Checking for conflicting files in \$HOME..."
 
+  mkdir -p "$BACKUP_DIR_BASE"
   mkdir -p "$BACKUP_DIR"
   cd "$DOTFILES_DIR/HOME"
 
