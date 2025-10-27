@@ -1,0 +1,6 @@
+\setenv PSQL_COLOR true
+\pset linestyle unicode
+\pset border 2
+\pset pager always
+\pset format aligned
+\setenv PGCOLORS "border:blue,header:green"

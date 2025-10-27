@@ -15,15 +15,15 @@ BACKUP_DIR="$HOME/__existing_dotfiles_backup/$(date +%s)"
 # ========================
 
 MACOS_DEPENDENCIES_BASE  = "git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm uv pyenv  jaq tldr gromgit/brewtils/taproom go"
-TERMUX_DEPENDENCIES_BASE = "git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm uv python jq  tealdeer nodejs rust"
+TERMUX_DEPENDENCIES_BASE = "git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm uv python jq  tealdeer python-numpy matplotlib nodejs rust"
 UBUNTU_DEPENDENCIES_BASE = "git stow vim"
 
 MACOS_DEPENDENCIES_EXTRA  = "fastfetch whois nmap pastel lynx dust duf dua-cli nushell postgresql@18 wireshark termshark lazydocker posting btop"
 TERMUX_DEPENDENCIES_EXTRA = "fastfetch whois nmap pastel lynx dust duf dua     nushell postgresql    root-repo termshark"
 
-MACOS_DEPENDENCIES_FUN  = "cmatrix cowsay figlet open-adventure jp2a lolcat yt-dlp libcaca mpv libsixel gstreamer asciiquarium"
-TERMUX_DEPENDENCIES_FUN = "cmatrix cowsay figlet open-adventure jp2a               termplay mplayer"
-TERMUX_DEPENDENCIES_FUN_PIP = "                                      lolcat yt-dlp"
+MACOS_DEPENDENCIES_FUN  = "cmatrix cowsay figlet sl open-adventure jp2a lolcat yt-dlp libcaca mpv libsixel gstreamer asciiquarium"
+TERMUX_DEPENDENCIES_FUN = "cmatrix cowsay figlet sl open-adventure jp2a               termplay mplayer"
+TERMUX_DEPENDENCIES_FUN_PIP = "                                         lolcat yt-dlp"
   
 MACOS_NETWORKING = "bandwhich bmon trippy zenith netscanner"
 MACOS_MONITORING = "bottom glances cointop"
@@ -100,8 +100,10 @@ install_dependencies_macos() {
   }
 
   common_post_install_steps
-}
 
+  echo "🐍 Installing global Python libraries that must be installed in Mac-specific ways"
+  pip install numpy matplotlib
+}
 
 install_dependencies_termux() {
   echo "📦 Installing Termux dependencies..."
@@ -119,7 +121,7 @@ install_dependencies_termux() {
   pkg install -y mandoc which zsh build-essential
 
   echo "🌀 Switching shell to Zsh..."
-  echo "exec zsh" > ~/.bashrc && source ~/.bashrc
+  echo "exec zsh" >> ~/.bashrc && source ~/.bashrc
 
   echo "📦 Installing base packages..."
   pkg install -y $TERMUX_DEPENDENCIES_BASE
@@ -144,7 +146,6 @@ install_dependencies_termux() {
   common_post_install_steps
 }
 
-
 install_dependencies_ubuntu() {
   echo "📦 Installing Ubuntu dependencies..."
 
@@ -156,7 +157,6 @@ install_dependencies_ubuntu() {
 
   common_post_install_steps
 }
-
 
 common_post_install_steps() {
   echo "🔧 Running common post-install steps..."
@@ -170,9 +170,6 @@ common_post_install_steps() {
   echo "💎 Installing Powerlevel10k prompt..."
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 
-  echo "🖥️  Applying tmux configuration..."
-  tmux source ~/.tmux.conf
-
   echo "📁 Creating ~/code directory..."
   mkdir -p "$HOME/code"
 
@@ -185,7 +182,8 @@ common_post_install_steps() {
 
   echo "🐍 Installing global Python packages..."
   pip install --upgrade pip
-  pip install jupyterlab numpy
+  pip install jupyterlab ipykernel
+  python -m ipykernel install --user --name python_global --display-name "Global $(python -V)"
 }
 
 # ==========================
@@ -194,7 +192,7 @@ backup_conflicts() {
   echo "Checking for conflicting files in \$HOME..."
 
   mkdir -p "$BACKUP_DIR"
-  cd "$DOTFILES_DIR"
+  cd "$DOTFILES_DIR/HOME"
 
   for file in .* *; do
     # Skip special dirs
@@ -219,7 +217,7 @@ clone_dotfiles_repo() {
 
 stow_dotfiles() {
   echo "Stowing dotfiles from root..."
-  cd "$DOTFILES_DIR"
+  cd "$DOTFILES_DIR/HOME"
   stow .
 }
 
@@ -302,6 +300,15 @@ setup_ssh_config() {
   fi
 }
 
+function post_clone_steps() {
+
+  echo "🖥️  Applying tmux configuration..."
+  tmux source ~/.tmux.conf
+
+  echo "🧰  Installing Neovim plugins and Mason packages..."
+  nvim --headless "+Lazy! sync" "+MasonInstallAll" "+qall"
+}
+
 # ========================
 # Main
 # ========================
@@ -335,8 +342,14 @@ main() {
   set_git_config
   generate_ssh_key
   setup_ssh_config
+  post_clone_steps
 
   echo "✅ Setup complete!"
+
+  if [[ "$OS" == "macos" ]]; then
+    echo "👻 Opening Ghostty..."
+    open -a Ghostty
+  fi
 }
 
 main "$@"

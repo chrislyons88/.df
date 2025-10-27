@@ -1,0 +1,107 @@
+# Replacing unused with a Gruvbox-like bright_green:
+unused = "#b8bb26"
+
+[gruvbox]
+  gray1   = "#504945"  # was dracula.gray1 (#464752)
+  gray2   = "#665c54"  # was dracula.gray2 (#565761)
+  gray3   = "#bdae93"  # was dracula.gray3 (#b6b6b2)
+  gray4   = "#d5c4a1"  # was dracula.gray4 (#ccccc7)
+  black   = "#282828"  # was dracula.black (#282a36)
+  blue    = "#83a598"  # was dracula.blue (#6272a4)
+  cyan    = "#8ec07c"  # was dracula.cyan (#8be9fd)
+  green   = "#b8bb26"  # was dracula.green (#50fa7b)
+  magenta = "#d3869b"  # was dracula.magenta (#ff79c6)
+  orange  = "#fe8019"  # was dracula.orange (#ffb86c)
+  purple  = "#d3869b"  # was dracula.purple (#bd93f9) 
+                       # (could also use "#b16286" if you prefer the “neutral” purple)
+  red     = "#fb4934"  # was dracula.red (#ff5555)
+  white   = "#ebdbb2"  # was dracula.white (#f8f8f2)
+  yellow  = "#fabd2f"  # was dracula.yellow (#f1fa8c)
+
+
+[dark]
+  button                 = ["gruvbox.black", "gruvbox.gray3"]
+  button-focus           = ["gruvbox.black", "gruvbox.magenta"]
+  button-selected        = ["gruvbox.white", "gruvbox.gray3"]
+  cmdline                = ["gruvbox.black", "gruvbox.yellow"]
+  cmdline-button         = ["gruvbox.yellow","gruvbox.black"]
+  cmdline-border         = ["gruvbox.black", "gruvbox.yellow"]
+  copy-mode              = ["gruvbox.black", "gruvbox.yellow"]
+  copy-mode-alt          = ["gruvbox.yellow","gruvbox.black"]
+  copy-mode-label        = ["gruvbox.white", "gruvbox.red"]
+  current-capture        = ["gruvbox.white", "unused"]
+  dialog                 = ["gruvbox.black", "gruvbox.yellow"]
+  dialog-button          = ["gruvbox.yellow","gruvbox.black"]
+  default                = ["gruvbox.white", "gruvbox.black"]
+  filter-empty           = ["gruvbox.black", "gruvbox.cyan"]
+  filter-intermediate    = ["gruvbox.black", "gruvbox.orange"]
+  filter-invalid         = ["gruvbox.black", "gruvbox.red"]
+  filter-menu            = ["gruvbox.white", "gruvbox.black"]
+  filter-valid           = ["gruvbox.black", "gruvbox.green"]
+  hex-byte-selected      = ["gruvbox.white", "gruvbox.purple"]
+  hex-byte-unselected    = ["gruvbox.white", "gruvbox.black"]
+  hex-field-selected     = ["gruvbox.black", "gruvbox.cyan"]
+  hex-field-unselected   = ["gruvbox.black", "gruvbox.white"]
+  hex-interval-selected  = ["gruvbox.white", "gruvbox.gray2"]
+  hex-interval-unselected= ["gruvbox.white", "gruvbox.gray1"]
+  hex-layer-selected     = ["gruvbox.white", "gruvbox.gray2"]
+  hex-layer-unselected   = ["gruvbox.white", "gruvbox.gray1"]
+  packet-list-cell-focus = ["gruvbox.white", "gruvbox.purple"]
+  packet-list-cell-selected = ["gruvbox.white", "gruvbox.gray2"]
+  packet-list-row-focus  = ["gruvbox.white", "gruvbox.cyan"]
+  packet-list-row-selected = ["gruvbox.white", "gruvbox.gray1"]
+  packet-struct-focus    = ["gruvbox.black", "gruvbox.cyan"]
+  packet-struct-selected = ["gruvbox.black", "gruvbox.gray2"]
+  progress-complete      = ["gruvbox.white", "gruvbox.purple"]
+  progress-default       = ["gruvbox.white", "gruvbox.black"]
+  progress-spinner       = ["gruvbox.yellow","gruvbox.purple"]
+  spinner                = ["gruvbox.yellow","gruvbox.black"]
+  stream-client          = ["gruvbox.black", "gruvbox.red"]
+  stream-match           = ["gruvbox.black", "gruvbox.yellow"]
+  stream-search          = ["gruvbox.black", "gruvbox.white"]
+  stream-server          = ["gruvbox.white", "gruvbox.blue"]
+  title                  = ["gruvbox.red", "unused"]
+
+
+[light]
+  button                 = ["gruvbox.black", "gruvbox.white"]
+  button-focus           = ["gruvbox.black", "gruvbox.purple"]
+  button-selected        = ["gruvbox.black", "gruvbox.gray3"]
+  cmdline                = ["gruvbox.black", "gruvbox.yellow"]
+  cmdline-button         = ["gruvbox.yellow","gruvbox.black"]
+  cmdline-border         = ["gruvbox.black", "gruvbox.yellow"]
+  copy-mode              = ["gruvbox.white", "gruvbox.yellow"]
+  copy-mode-alt          = ["gruvbox.yellow","gruvbox.white"]
+  copy-mode-label        = ["gruvbox.black", "gruvbox.red"]
+  current-capture        = ["gruvbox.black", "unused"]
+  dialog                 = ["gruvbox.black", "gruvbox.yellow"]
+  dialog-button          = ["gruvbox.yellow","gruvbox.black"]
+  default                = ["gruvbox.black", "gruvbox.white"]
+  filter-empty           = ["gruvbox.black", "gruvbox.cyan"]
+  filter-intermediate    = ["gruvbox.black", "gruvbox.orange"]
+  filter-invalid         = ["gruvbox.black", "gruvbox.red"]
+  filter-menu            = ["gruvbox.black", "gruvbox.white"]
+  filter-valid           = ["gruvbox.black", "gruvbox.green"]
+  hex-byte-selected      = ["gruvbox.white", "gruvbox.purple"]
+  hex-byte-unselected    = ["gruvbox.black", "gruvbox.white"]
+  hex-field-selected     = ["gruvbox.black", "gruvbox.cyan"]
+  hex-field-unselected   = ["gruvbox.black", "gruvbox.gray2"]
+  hex-interval-selected  = ["gruvbox.white", "gruvbox.gray2"]
+  hex-interval-unselected= ["gruvbox.black", "gruvbox.gray4"]
+  hex-layer-selected     = ["gruvbox.white", "gruvbox.gray2"]
+  hex-layer-unselected   = ["gruvbox.black", "gruvbox.gray4"]
+  packet-list-cell-focus = ["gruvbox.white", "gruvbox.purple"]
+  packet-list-cell-selected = ["gruvbox.black", "gruvbox.gray3"]
+  packet-list-row-focus  = ["gruvbox.white", "gruvbox.cyan"]
+  packet-list-row-selected = ["gruvbox.black", "gruvbox.gray4"]
+  packet-struct-focus    = ["gruvbox.black", "gruvbox.cyan"]
+  packet-struct-selected = ["gruvbox.black", "gruvbox.gray4"]
+  progress-complete      = ["gruvbox.white", "gruvbox.purple"]
+  progress-default       = ["gruvbox.white", "gruvbox.black"]
+  progress-spinner       = ["gruvbox.yellow","gruvbox.black"]
+  spinner                = ["gruvbox.yellow","gruvbox.white"]
+  stream-client          = ["gruvbox.white", "gruvbox.red"]
+  stream-match           = ["gruvbox.white", "gruvbox.yellow"]
+  stream-search          = ["gruvbox.white", "gruvbox.black"]
+  stream-server          = ["gruvbox.white", "gruvbox.blue"]
+  title                  = ["gruvbox.red", "unused"]
