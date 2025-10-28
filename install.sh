@@ -181,13 +181,15 @@ common_post_install_steps() {
     echo "⚠️  Yazi theme already installed or failed to install — continuing..."
   fi
 
-  if [[ -d "$HOME/powerlevel10k/.git" ]]; then
-    echo "✅ Powerlevel10k already installed at ~/powerlevel10k"
+  echo "💎 Installing Powerlevel10k prompt..."
+  if [ -d "$HOME/powerlevel10k" ]; then
+    echo "✅ Powerlevel10k already present at ~/powerlevel10k"
   else
-    echo "💎 Installing Powerlevel10k prompt..."
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$HOME/powerlevel10k" || {
-      echo "⚠️  Failed to clone Powerlevel10k — continuing..."
-    }
+    if git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$HOME/powerlevel10k"; then
+      echo "✨ Powerlevel10k cloned successfully."
+    else
+      echo "⚠️  Failed to clone Powerlevel10k (network issue or existing dir) — continuing anyway."
+    fi
   fi
 
   echo "📁 Creating ~/code directory..."
