@@ -89,14 +89,14 @@ install_dependencies_macos() {
   set +e  # disable exit on nonzero for this block
   {
     brew update >/dev/null 2>&1
-    brew install --cask \
+    brew install --quiet --cask \
       ghostty rectangle logi-options+ \
       google-chrome firefox \
       docker-desktop wireshark-app pgadmin4 visual-studio-code postman
       2>/dev/null || true
     } || true
-  # other potentials: notion 1password gimp figma blender
   set -e  # re-enable strict mode
+  # other potentials: notion 1password gimp figma blender
 
   read -p "💡 Install extra packages (networking, CLI tools)? [y/N] " confirm_extra
   [[ "$confirm_extra" =~ ^[Yy]$ ]] && {
