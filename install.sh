@@ -90,7 +90,7 @@ install_dependencies_macos() {
   brew update && brew install --cask \
     ghostty rectangle logi-options+ \
     google-chrome firefox \
-    docker-desktop wireshark-app pgadmin4 visual-studio-code postman
+    docker-desktop wireshark-app pgadmin4 visual-studio-code postman 2>/dev/null || true
   # notion 1password gimp figma blender 
   set -e # re-enable exit on error
 
