@@ -80,9 +80,7 @@ install_dependencies_macos() {
   nvm install --lts && nvm use --lts
 
   echo "🐍 Installing Python 3.12 via pyenv..."
-  export PYENV_ROOT="$HOME/.pyenv"
-  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init - zsh)"
+  PYENV_ROOT="$HOME/.pyenv" PATH="$PYENV_ROOT/bin:$PATH" eval "$(pyenv init - zsh)"
   pyenv install 3.12 && pyenv global 3.12
 
   echo "🦀 Installing Rust via rustup..."
