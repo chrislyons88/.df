@@ -17,6 +17,7 @@ The only changes one would have to make for this to work for them would be to re
 
 ## OSX
 - Open the built-in Terminal app
+- Type `sudo ls` (or any other arbitrary command) and enter your password to ensure the install has the correct premissions
 
 # Install
 
