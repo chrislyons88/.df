@@ -15,7 +15,7 @@ BACKUP_DIR="$BACKUP_DIR_BASE=/$(date +%s)"
 # Dependency lists
 # ========================
 
-MACOS_DEPENDENCIES_BASE=" git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm uv pyenv  jaq tldr gromgit/brewtils/taproom go"
+MACOS_DEPENDENCIES_BASE=" git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm uv pyenv  jaq tealdeer gromgit/brewtils/taproom go"
 TERMUX_DEPENDENCIES_BASE="git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm uv python jq  tealdeer python-numpy matplotlib nodejs rust"
 UBUNTU_DEPENDENCIES_BASE="git stow vim"
 
@@ -87,7 +87,7 @@ install_dependencies_macos() {
 
   echo "🧩 Installing GUI apps via Homebrew Cask..."
   brew update && brew install --cask \
-    ghostty spectacle logi-options+ \
+    ghostty rectangle logi-options+ \
     google-chrome firefox \
     docker-desktop wireshark-app pgadmin4 visual-studio-code postman
     # gimp figma blender
