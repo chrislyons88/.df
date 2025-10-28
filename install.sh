@@ -87,9 +87,10 @@ install_dependencies_macos() {
 
   echo "🧩 Installing GUI apps via Homebrew Cask..."
   brew update && brew install --cask \
-    ghostty rectangle logi-options+ \
+    ghostty rectangle \
     google-chrome firefox \
     docker-desktop wireshark-app pgadmin4 visual-studio-code postman
+  brew install --cask logi-options+ || echo "⚠️ Logi Options+ requires a reboot to take effect."
     # gimp figma blender
     # notion 1password
 
