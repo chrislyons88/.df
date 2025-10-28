@@ -9,7 +9,7 @@ set -e
 REPO_URL="https://github.com/chrislyons88/.df.git"
 DOTFILES_DIR="$HOME/.df"
 BACKUP_DIR_BASE="$HOME/__existing_dotfiles_backup"
-BACKUP_DIR="$BACKUP_DIR_BASE=/$(date +%s)"
+BACKUP_DIR="$BACKUP_DIR_BASE/$(date +%s)"
 
 # ========================
 # Dependency lists
@@ -90,9 +90,8 @@ install_dependencies_macos() {
   brew update && brew install --cask \
     ghostty rectangle logi-options+ \
     google-chrome firefox \
-    docker-desktop wireshark-app pgadmin4 visual-studio-code postman \
-    # gimp figma blender \
-    # notion 1password
+    docker-desktop wireshark-app pgadmin4 visual-studio-code postman
+  # notion 1password gimp figma blender 
   set -e # re-enable exit on error
 
   read -p "💡 Install extra packages (networking, CLI tools)? [y/N] " confirm_extra
