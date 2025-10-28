@@ -29,6 +29,10 @@ TERMUX_DEPENDENCIES_FUN_PIP="                                         lolcat yt-
 MACOS_NETWORKING="bandwhich bmon trippy zenith netscanner"
 MACOS_MONITORING="bottom glances cointop"
 
+# temp env vars for mac pyenv
+PYENV_ROOT="$HOME/.pyenv"
+PATH="$PYENV_ROOT/bin:$PATH"
+
 # ========================
 # Functions
 # ========================
@@ -80,7 +84,7 @@ install_dependencies_macos() {
   nvm install --lts && nvm use --lts
 
   echo "🐍 Installing Python 3.12 via pyenv..."
-  PYENV_ROOT="$HOME/.pyenv" PATH="$PYENV_ROOT/bin:$PATH" eval "$(pyenv init - zsh)"
+  eval "$(pyenv init - zsh)"
   pyenv install 3.12 && pyenv global 3.12
 
   echo "🦀 Installing Rust via rustup..."
@@ -203,6 +207,7 @@ common_post_install_steps() {
   npm install -g mapscii
 
   echo "🐍 Installing global Python packages..."
+
   pip install --upgrade pip
   pip install jupyterlab ipykernel
   python -m ipykernel install --user --name python_global --display-name "Global $(python -V)"
