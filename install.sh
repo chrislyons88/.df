@@ -15,19 +15,19 @@ BACKUP_DIR="$BACKUP_DIR_BASE=/$(date +%s)"
 # Dependency lists
 # ========================
 
-MACOS_DEPENDENCIES_BASE  = "git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm uv pyenv  jaq tldr gromgit/brewtils/taproom go"
-TERMUX_DEPENDENCIES_BASE = "git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm uv python jq  tealdeer python-numpy matplotlib nodejs rust"
-UBUNTU_DEPENDENCIES_BASE = "git stow vim"
+MACOS_DEPENDENCIES_BASE=" git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm uv pyenv  jaq tldr gromgit/brewtils/taproom go"
+TERMUX_DEPENDENCIES_BASE="git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm uv python jq  tealdeer python-numpy matplotlib nodejs rust"
+UBUNTU_DEPENDENCIES_BASE="git stow vim"
 
-MACOS_DEPENDENCIES_EXTRA  = "fastfetch whois nmap pastel lynx dust duf dua-cli nushell postgresql@18 wireshark termshark lazydocker posting btop"
-TERMUX_DEPENDENCIES_EXTRA = "fastfetch whois nmap pastel lynx dust duf dua     nushell postgresql    root-repo termshark"
+MACOS_DEPENDENCIES_EXTRA=" fastfetch whois nmap pastel lynx dust duf dua-cli nushell postgresql@18 wireshark termshark lazydocker posting btop"
+TERMUX_DEPENDENCIES_EXTRA="fastfetch whois nmap pastel lynx dust duf dua     nushell postgresql    root-repo termshark"
 
-MACOS_DEPENDENCIES_FUN  = "cmatrix cowsay figlet sl open-adventure jp2a lolcat yt-dlp libcaca mpv libsixel gstreamer asciiquarium"
-TERMUX_DEPENDENCIES_FUN = "cmatrix cowsay figlet sl open-adventure jp2a               termplay mplayer"
-TERMUX_DEPENDENCIES_FUN_PIP = "                                         lolcat yt-dlp"
+MACOS_DEPENDENCIES_FUN=" cmatrix cowsay figlet sl open-adventure jp2a lolcat yt-dlp libcaca mpv libsixel gstreamer asciiquarium"
+TERMUX_DEPENDENCIES_FUN="cmatrix cowsay figlet sl open-adventure jp2a               termplay mplayer"
+TERMUX_DEPENDENCIES_FUN_PIP="                                         lolcat yt-dlp"
   
-MACOS_NETWORKING = "bandwhich bmon trippy zenith netscanner"
-MACOS_MONITORING = "bottom glances cointop"
+MACOS_NETWORKING="bandwhich bmon trippy zenith netscanner"
+MACOS_MONITORING="bottom glances cointop"
 
 # ========================
 # Functions
