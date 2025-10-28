@@ -80,6 +80,10 @@ install_dependencies_macos() {
   nvm install --lts && nvm use --lts
 
   echo "🐍 Installing Python 3.12 via pyenv..."
+  . "$HOME/.local/bin/env"
+  export PYENV_ROOT="$HOME/.pyenv"
+  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init - zsh)"
   pyenv install 3.12 && pyenv global 3.12
 
   echo "🦀 Installing Rust via rustup..."
@@ -176,7 +180,7 @@ common_post_install_steps() {
   tldr --update
 
   echo "🎨 Installing Yazi gruvbox-dark theme..."
-  ya pack -a bennyyip/gruvbox-dark
+  ya pkg add bennyyip/gruvbox-dark
 
   echo "💎 Installing Powerlevel10k prompt..."
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
