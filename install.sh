@@ -246,7 +246,7 @@ clone_dotfiles_repo() {
 stow_dotfiles() {
   echo "Stowing dotfiles from root..."
   cd "$DOTFILES_DIR/HOME"
-  stow .
+  stow -v -t ~ .
 }
 
 
@@ -330,8 +330,8 @@ setup_ssh_config() {
 
 function post_clone_steps() {
 
-  echo "🖥️  Applying tmux configuration..."
-  tmux source ~/.tmux.conf
+  # echo "🖥️  Applying tmux configuration..."
+  # tmux source ~/.tmux.conf
 
   echo "🧰  Installing Neovim plugins and Mason packages..."
   nvim --headless "+Lazy! sync" "+MasonInstallAll" "+qall"
