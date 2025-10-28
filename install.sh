@@ -61,6 +61,10 @@ install_dependencies_macos() {
   if ! command -v brew >/dev/null 2>&1; then
     echo "🍺 Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  
+    echo >> /Users/$(whoami)/.zprofile
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
   fi
 
   echo "🔄 Updating and upgrading Homebrew..."
