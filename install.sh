@@ -330,9 +330,6 @@ setup_ssh_config() {
 
 function post_clone_steps() {
 
-  # echo "🖥️  Applying tmux configuration..."
-  # tmux source ~/.tmux.conf
-
   echo "🧰  Installing Neovim plugins and Mason packages..."
   nvim --headless "+Lazy! sync" "+MasonInstallAll" "+qall"
 }
