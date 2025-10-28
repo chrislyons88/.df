@@ -86,13 +86,14 @@ install_dependencies_macos() {
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
   echo "🧩 Installing GUI apps via Homebrew Cask..."
+  set +e # disabling error exit for cask step
   brew update && brew install --cask \
-    ghostty rectangle \
+    ghostty rectangle logi-options+ \
     google-chrome firefox \
     docker-desktop wireshark-app pgadmin4 visual-studio-code postman
-  brew install --cask logi-options+ || echo "⚠️ Logi Options+ requires a reboot to take effect."
     # gimp figma blender
     # notion 1password
+  set -e # re-enable exit on error
 
   read -p "💡 Install extra packages (networking, CLI tools)? [y/N] " confirm_extra
   [[ "$confirm_extra" =~ ^[Yy]$ ]] && {
