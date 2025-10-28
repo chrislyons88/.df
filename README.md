@@ -19,12 +19,17 @@ The only changes one would have to make for this to work for them would be to re
 - Open the built-in Terminal app
 - Type `sudo ls` (or any other arbitrary command) and enter your password to ensure the install has the correct premissions
 
+
+### Post install scripts actions
+- Go to "Login Items & Extensions" in system settings and add `Logi Options+` and `Rectangle`
+- Remove all unwanted items in the dock, then right-click and select `Turn Hiding On`
+
 # Install
 
 It's surprisingly simple, all you need to do is run this curl command and respond to any prompts:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/chrislyons88/.df/refs/heads/main/install.sh | sh
+bash -i <(curl -fsSL https://github.com/chrislyons88/.df/raw/main/install.sh)
 ```
 This will do the following:
 - Detect if your OS is a supported target, and if so, continue down its specific path
