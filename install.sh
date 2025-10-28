@@ -177,7 +177,9 @@ common_post_install_steps() {
   tldr --update
 
   echo "🎨 Installing Yazi gruvbox-dark theme..."
-  ya pkg add bennyyip/gruvbox-dark
+  if ! ya pkg add bennyyip/gruvbox-dark; then
+    echo "⚠️  Yazi theme already installed or failed to install — continuing..."
+  fi
 
   echo "💎 Installing Powerlevel10k prompt..."
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
