@@ -84,9 +84,10 @@ install_dependencies_macos() {
   echo "🧩 Installing GUI apps via Homebrew Cask..."
   brew update && brew install --cask \
     ghostty spectacle logi-options+ \
-    google-chrome firefox notion 1password \
-    docker-desktop wireshark-app pgadmin4 visual-studio-code postman \
-    gimp figma blender
+    google-chrome firefox \
+    docker-desktop wireshark-app pgadmin4 visual-studio-code postman
+    # gimp figma blender
+    # notion 1password
 
   read -p "💡 Install extra packages (networking, CLI tools)? [y/N] " confirm_extra
   [[ "$confirm_extra" =~ ^[Yy]$ ]] && {
