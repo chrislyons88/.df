@@ -86,16 +86,16 @@ install_dependencies_macos() {
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
   echo "🧩 Installing GUI apps via Homebrew Cask..."
-  set +e  # disable exit on nonzero for this block
-  {
-    brew update >/dev/null 2>&1
+  (
+    set +e  # disable strict mode in subshell only
+    brew update --quiet
     brew install --quiet --cask \
       ghostty rectangle logi-options+ \
       google-chrome firefox \
       docker-desktop wireshark-app pgadmin4 visual-studio-code postman
-      2>/dev/null || true
-    } || true
-  set -e  # re-enable strict mode
+      >/dev/null 2>&1
+    echo "✅ Finished installing cask apps (ignored errors)."
+  ) || echo "⚠️  Continuing despite cask install warnings..."
   # other potentials: notion 1password gimp figma blender
 
   read -p "💡 Install extra packages (networking, CLI tools)? [y/N] " confirm_extra
