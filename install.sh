@@ -20,7 +20,7 @@ TERMUX_DEPENDENCIES_BASE="git stow vim neovim tmux eza bat zoxide ripgrep fd fzf
 UBUNTU_DEPENDENCIES_BASE="git stow vim"
 
 MACOS_DEPENDENCIES_EXTRA=" fastfetch whois nmap pastel lynx dust duf dua-cli nushell postgresql@18 wireshark termshark lazydocker posting btop"
-TERMUX_DEPENDENCIES_EXTRA="fastfetch whois nmap pastel lynx dust duf dua     nushell postgresql    root-repo termshark"
+TERMUX_DEPENDENCIES_EXTRA="fastfetch whois nmap pastel lynx dust duf dua     nushell postgresql              termshark"
 
 MACOS_DEPENDENCIES_FUN=" cmatrix cowsay figlet sl open-adventure jp2a lolcat yt-dlp libcaca mpv libsixel gstreamer asciiquarium"
 TERMUX_DEPENDENCIES_FUN="cmatrix cowsay figlet sl open-adventure jp2a               termplay mplayer"
@@ -134,7 +134,7 @@ install_dependencies_termux() {
   apt-mark showmanual > termux-default-packages-list.txt
 
   echo "⚙️  Installing base development tools..."
-  pkg install -y mandoc which zsh build-essential
+  pkg install -y mandoc which zsh build-essential root-repo 
 
   
 
