@@ -118,6 +118,7 @@ install_dependencies_macos() {
   common_post_install_steps
 
   echo "🐍 Installing global Python libraries that must be installed in Mac-specific ways"
+  pip install --upgrade pip
   pip install numpy matplotlib
 }
 
@@ -207,7 +208,6 @@ common_post_install_steps() {
 
   echo "🐍 Installing global Python packages..."
 
-  pip install --upgrade pip
   pip install jupyterlab ipykernel
   python -m ipykernel install --user --name python_global --display-name "Global $(python -V)"
 }
