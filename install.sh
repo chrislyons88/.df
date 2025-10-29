@@ -15,8 +15,8 @@ BACKUP_DIR="$BACKUP_DIR_BASE/$(date +%s)"
 # Dependency lists
 # ========================
 
-MACOS_DEPENDENCIES_BASE=" git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm uv pyenv  jaq tealdeer gromgit/brewtils/taproom go"
-TERMUX_DEPENDENCIES_BASE="git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm uv python jq  tealdeer python-numpy matplotlib nodejs rust"
+MACOS_DEPENDENCIES_BASE=" git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop uv pyenv  jaq tealdeer gromgit/brewtils/taproom go"
+TERMUX_DEPENDENCIES_BASE="git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop uv python jq  tealdeer python-numpy matplotlib nodejs rust"
 UBUNTU_DEPENDENCIES_BASE="git stow vim"
 
 MACOS_DEPENDENCIES_EXTRA=" fastfetch whois nmap pastel lynx dust duf dua-cli nushell postgresql@18 wireshark termshark lazydocker posting btop"
@@ -203,7 +203,7 @@ common_post_install_steps() {
   uv tool update-shell
 
   echo "🌐 Installing global npm packages..."
-  npm install -g mapscii
+  npm install -g pnpm@latest-10 mapscii
 
   echo "🐍 Installing global Python packages..."
 
