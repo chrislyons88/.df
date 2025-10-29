@@ -136,8 +136,7 @@ install_dependencies_termux() {
   echo "⚙️  Installing base development tools..."
   pkg install -y mandoc which zsh build-essential
 
-  echo "🌀 Switching shell to Zsh..."
-  echo "exec zsh" >> ~/.bashrc && source ~/.bashrc
+  
 
   echo "📦 Installing base packages..."
   pkg install -y $TERMUX_DEPENDENCIES_BASE
@@ -374,6 +373,10 @@ main() {
   if [[ "$OS" == "macos" ]]; then
     echo "👻 Opening Ghostty..."
     open -a Ghostty
+  fi
+  if [[ "$OS" == "termux" ]]; then
+    echo "🌀 Switching shell to Zsh..."
+    echo "exec zsh" >> ~/.bashrc && source ~/.bashrc
   fi
 }
 
