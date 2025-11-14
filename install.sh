@@ -20,7 +20,7 @@ TERMUX_DEPENDENCIES_BASE="git stow vim neovim tmux eza bat zoxide ripgrep fd fzf
 UBUNTU_DEPENDENCIES_BASE="git stow vim"
 
 MACOS_DEPENDENCIES_EXTRA=" fastfetch whois nmap pastel lynx dust duf dua-cli nushell postgresql@18 wireshark termshark lazydocker posting btop"
-TERMUX_DEPENDENCIES_EXTRA="fastfetch whois nmap pastel lynx dust duf dua     nushell postgresql    root-repo termshark"
+TERMUX_DEPENDENCIES_EXTRA="fastfetch whois nmap pastel lynx dust duf dua     nushell postgresql              termshark"
 
 MACOS_DEPENDENCIES_FUN=" cmatrix cowsay figlet sl open-adventure jp2a lolcat yt-dlp libcaca mpv libsixel gstreamer asciiquarium"
 TERMUX_DEPENDENCIES_FUN="cmatrix cowsay figlet sl open-adventure jp2a               termplay mplayer"
@@ -119,6 +119,7 @@ install_dependencies_macos() {
   common_post_install_steps
 
   echo "🐍 Installing global Python libraries that must be installed in Mac-specific ways"
+  pip install --upgrade pip
   pip install numpy matplotlib
 
   # brew install ollama
@@ -139,10 +140,9 @@ install_dependencies_termux() {
   apt-mark showmanual > termux-default-packages-list.txt
 
   echo "⚙️  Installing base development tools..."
-  pkg install -y mandoc which zsh build-essential
+  pkg install -y mandoc which zsh build-essential root-repo 
 
-  echo "🌀 Switching shell to Zsh..."
-  echo "exec zsh" >> ~/.bashrc && source ~/.bashrc
+  
 
   echo "📦 Installing base packages..."
   pkg install -y $TERMUX_DEPENDENCIES_BASE
@@ -209,11 +209,10 @@ common_post_install_steps() {
   uv tool update-shell
 
   echo "🌐 Installing global npm packages..."
-  npm install -g mapscii
+  npm install -g pnpm@latest-10 mapscii
 
   echo "🐍 Installing global Python packages..."
 
-  pip install --upgrade pip
   pip install jupyterlab ipykernel
   python -m ipykernel install --user --name python_global --display-name "Global $(python -V)"
 }
@@ -379,6 +378,10 @@ main() {
   if [[ "$OS" == "macos" ]]; then
     echo "👻 Opening Ghostty..."
     open -a Ghostty
+  fi
+  if [[ "$OS" == "termux" ]]; then
+    echo "🌀 Switching shell to Zsh..."
+    echo "exec zsh" >> ~/.bashrc && source ~/.bashrc
   fi
 }
 
