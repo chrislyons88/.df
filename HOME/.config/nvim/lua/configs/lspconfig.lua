@@ -1,6 +1,30 @@
 require("nvchad.configs.lspconfig").defaults()
+-- https://github.com/mason-org/mason-lspconfig.nvim/tree/main/lua/mason-lspconfig/lsp
+local servers = {
+  -- vim/lua
+  "lua_ls",
+  "stylua",
 
-local servers = { "html", "cssls", "ts_ls", "vuels", "svelte", "pyright", "bashls", "rust_analyzer" }
+  -- frontend web
+  -- "html",
+  -- "cssls",
+  -- "vuels",
+  -- "svelte",
+  -- "astro-language-server",
+  "tailwindcss",
+  "vtsls",
+  -- "eslint",
+
+  -- python
+  "basedpyright",
+
+  -- rust
+  "rust_analyzer",
+
+  -- other
+  "bashls",
+}
+
 vim.lsp.enable(servers)
 
--- read :h vim.lsp.config for changing options of lsp servers 
+-- read :h vim.lsp.config for changing options of lsp servers

@@ -15,8 +15,8 @@ BACKUP_DIR="$BACKUP_DIR_BASE/$(date +%s)"
 # Dependency lists
 # ========================
 
-MACOS_DEPENDENCIES_BASE=" git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm uv pyenv  jaq tealdeer gromgit/brewtils/taproom go"
-TERMUX_DEPENDENCIES_BASE="git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm uv python jq  tealdeer python-numpy matplotlib nodejs rust"
+MACOS_DEPENDENCIES_BASE=" git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm ollama uv pyenv  jaq tealdeer gromgit/brewtils/taproom go"
+TERMUX_DEPENDENCIES_BASE="git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm ollama uv python jq  tealdeer python-numpy matplotlib nodejs rust"
 UBUNTU_DEPENDENCIES_BASE="git stow vim"
 
 MACOS_DEPENDENCIES_EXTRA=" fastfetch whois nmap pastel lynx dust duf dua-cli nushell postgresql@18 wireshark termshark lazydocker posting btop"
@@ -97,7 +97,8 @@ install_dependencies_macos() {
     brew install --quiet --cask \
       ghostty rectangle logi-options+ \
       google-chrome firefox \
-      docker-desktop wireshark-app pgadmin4 visual-studio-code postman
+      visual-studio-code ollama-app \
+      docker-desktop wireshark-app pgadmin4 postman
       >/dev/null 2>&1
     echo "✅ Finished installing cask apps (ignored errors)."
   ) || echo "⚠️  Continuing despite cask install warnings..."
@@ -119,6 +120,10 @@ install_dependencies_macos() {
 
   echo "🐍 Installing global Python libraries that must be installed in Mac-specific ways"
   pip install numpy matplotlib
+
+  # brew install ollama
+  # ollama serve
+  # ollama pull deepseek-coder-v2:16b
 }
 
 install_dependencies_termux() {
