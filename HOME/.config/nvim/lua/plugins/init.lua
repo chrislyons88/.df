@@ -67,6 +67,14 @@ return {
     },
   },
 
+  {
+    "bngarren/checkmate.nvim",
+    ft = "markdown", -- Lazy loads for Markdown files matching patterns in 'files'
+    opts = {
+      -- files = { "*.md" }, -- any .md file (instead of defaults)
+    },
+  },
+
   -- https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-move.md#default-config
   { "nvim-mini/mini.move", event = "VeryLazy", version = false, opts = {} },
 
@@ -126,7 +134,7 @@ return {
     ---@type snacks.Config
     -- https://github.com/folke/snacks.nvim/tree/main?tab=readme-ov-file#-usage
     opts = {
-      -- animate = { enabled = true },
+      animate = { enabled = true },
       bigfile = { enabled = true },
       -- bufdelete = { enabled = true },
       -- dashboard = { enabled = true },
@@ -149,7 +157,7 @@ return {
       quickfile = { enabled = true },
       -- rename = { enabled = true },
       -- scope = { enabled = true },
-      -- scratch = { enabled = true },
+      scratch = { enabled = true },
       scroll = { enabled = true },
       statuscolumn = { enabled = true },
       -- terminal = { enabled = true },
@@ -160,12 +168,36 @@ return {
       zen = { enabled = true },
     },
     keys = {
+
+      -- zen mode
       {
         "<leader>z",
         function()
           Snacks.zen()
         end,
         desc = "Toggle Zen Mode",
+      },
+
+      -- floating todo
+      {
+        "<leader>T.",
+        function()
+          require("lazy").load { plugins = { "checkmate.nvim" } }
+
+          local root = vim.fn.getcwd() -- project root
+          local file = root .. "/todo.md" -- use existing todo.md in project
+
+          -- create file if needed
+          if vim.fn.filereadable(file) == 0 then
+            vim.fn.writefile({}, file)
+          end
+
+          Snacks.scratch.open {
+            ft = "markdown",
+            file = file, -- now points to project todo
+          }
+        end,
+        desc = "Toggle Project Todo",
       },
     },
   },
