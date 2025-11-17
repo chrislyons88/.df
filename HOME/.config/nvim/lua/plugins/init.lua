@@ -262,18 +262,20 @@ return {
         function()
           require("lazy").load { plugins = { "checkmate.nvim" } }
 
-          local root = vim.fn.getcwd() -- project root
-          local file = root .. "/todo.md" -- use existing todo.md in project
+          vim.schedule(function()
+            local root = vim.fn.getcwd() -- project root
+            local file = root .. "/todo.md" -- use existing todo.md in project
 
-          -- create file if needed
-          if vim.fn.filereadable(file) == 0 then
-            vim.fn.writefile({}, file)
-          end
+            -- create file if needed
+            if vim.fn.filereadable(file) == 0 then
+              vim.fn.writefile({}, file)
+            end
 
-          Snacks.scratch.open {
-            ft = "markdown",
-            file = file, -- now points to project todo
-          }
+            Snacks.scratch.open {
+              ft = "markdown",
+              file = file, -- now points to project todo
+            }
+          end)
         end,
         desc = "Toggle Project Todo",
       },
