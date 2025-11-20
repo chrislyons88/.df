@@ -37,6 +37,26 @@ return {
   -- ===================================
 
   {
+    "lewis6991/gitsigns.nvim",
+    opts = function(_, opts)
+      -- `opts` contains NvChad's existing gitsigns config
+      -- opts.signs = vim.tbl_extend("force", opts.signs or {}, {
+      -- })
+
+      -- Add a new option or change an existing one
+      -- opts.numhl = true
+      opts.word_diff = true -- Toggle with `:Gitsigns toggle_word_diff`
+      opts.current_line_blame = true -- Toggle with `:Gitsigns toggle_current_line_blame`
+      opts.current_line_blame_opts = {
+        virt_text_pos = "right_align", -- 'eol' | 'overlay' | 'right_align'
+        delay = 666,
+      }
+
+      return opts
+    end,
+  },
+
+  {
     "mrcjkb/rustaceanvim",
     version = "^6", -- Recommended
     lazy = false, -- This plugin is already lazy
@@ -78,6 +98,7 @@ return {
     opts = {},
   },
 
+  -- Code minimap on right side
   {
     "gorbit99/codewindow.nvim",
     event = "VeryLazy",
@@ -132,6 +153,55 @@ return {
   -- https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-move.md#default-config
   { "nvim-mini/mini.move", event = "VeryLazy", version = false, opts = {} },
 
+  -- highlight selected word
+  {
+    "RRethy/vim-illuminate",
+    event = "VeryLazy",
+    config = function()
+      require("illuminate").configure {
+        providers = {
+          "lsp",
+          "treesitter",
+          "regex",
+        },
+        delay = 200,
+        filetypes_denylist = { "NvimTree", "lazy", "alpha" },
+      }
+    end,
+  },
+
+  { "chrisgrieser/nvim-rulebook", event = "VeryLazy" },
+
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    event = "VeryLazy",
+    priority = 1000,
+    config = function()
+      require("tiny-inline-diagnostic").setup {
+        options = {
+          multilines = {
+            enabled = true,
+          },
+          show_source = {
+            enabled = true,
+          },
+        },
+      }
+    end,
+  },
+
+  -- make icon colors match colorscheme
+  -- {
+  --   "rachartier/tiny-devicons-auto-colors.nvim",
+  --   dependencies = {
+  --     "nvim-tree/nvim-web-devicons",
+  --   },
+  --   event = "VeryLazy",
+  --   config = function()
+  --     require("tiny-devicons-auto-colors").setup()
+  --   end,
+  -- },
+
   ---@type LazySpec
   {
     "mikavilpas/yazi.nvim",
@@ -179,7 +249,7 @@ return {
 
   {
     "kdheepak/lazygit.nvim",
-    lazy = true,
+    event = "VeryLazy",
     cmd = {
       "LazyGit",
       "LazyGitConfig",
@@ -493,6 +563,14 @@ return {
   {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown", "codecompanion" },
+    opts = {
+      bullet = { enabled = false }, -- ← removes the unwanted bullet in Checkmate
+      -- checkbox = {
+      --   enabled = true,
+      --   unchecked = "",
+      --   checked = "",
+      -- },
+    },
   },
 
   -- test new blink
