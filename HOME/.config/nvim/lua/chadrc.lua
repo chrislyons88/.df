@@ -23,6 +23,26 @@ M.base46 = {
   },
 }
 
+-- Show all attached LSP clients
+M.ui = {
+  statusline = {
+    modules = {
+      lsp = function()
+        local clients = vim.lsp.get_clients { bufnr = 0 }
+        if not clients or #clients == 0 then
+          return ""
+        end
+
+        local names = {}
+        for _, c in ipairs(clients) do
+          table.insert(names, c.name)
+        end
+
+        return "%#St_Lsp# LSP ~ " .. table.concat(names, ", ") .. "  "
+      end,
+    },
+  },
+}
 -- M.nvdash = { load_on_startup = true }
 -- M.ui = {
 --       tabufline = {

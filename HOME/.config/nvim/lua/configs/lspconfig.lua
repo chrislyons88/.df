@@ -25,6 +25,10 @@ local servers = {
   "bashls",
 }
 
+vim.diagnostic.config({
+  virtual_text = false, -- 🔥 REQUIRED
+})
+
 vim.lsp.enable(servers)
 
 -- read :h vim.lsp.config for changing options of lsp servers
