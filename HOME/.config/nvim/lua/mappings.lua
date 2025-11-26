@@ -12,9 +12,10 @@ map({ "n", "t" }, "<C-h>", function()
   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
 end, { desc = "terminal toggleable horizontal term" })
 
+-- TODO: put some of these with their plugin configs
 -- code actions
 vim.keymap.set({ "n", "x" }, "<leader>ca", function()
-	require("tiny-code-action").code_action()
+  require("tiny-code-action").code_action()
 end, { noremap = true, silent = true })
 
 -- telescope keymaps
@@ -27,7 +28,6 @@ vim.keymap.set("n", "<leader>ss", "<cmd>source Session.vim<CR>", { desc = "Sourc
 vim.keymap.set("n", "<leader>ph", function()
   require("gitsigns").preview_hunk_inline()
 end, { desc = "Preview hunk inline" })
-
 
 -- ignore lint rule
 vim.keymap.set("n", "<leader>ir", "<cmd>Rulebook ignoreRule<CR>", { desc = "Ignore Lint rule" })

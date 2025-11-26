@@ -190,6 +190,253 @@ return {
     end,
   },
 
+  {
+    "gisketch/triforce.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "nvzone/volt",
+    },
+    config = function()
+      require("triforce").setup {
+        -- Optional: Add your configuration here
+        keymap = {
+          show_profile = "<leader>tf", -- Open profile with <leader>tp
+        },
+      }
+    end,
+  },
+
+  {
+    "brianhuster/live-preview.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      -- You can choose one of the following pickers
+      "nvim-telescope/telescope.nvim",
+      "ibhagwan/fzf-lua",
+      "echasnovski/mini.pick",
+      "folke/snacks.nvim",
+    },
+    keys = {
+      {
+        "<leader>lp",
+        "<cmd>LivePreview start<CR>",
+        desc = "Start live preview of file",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>lc",
+        "<cmd>LivePreview close<CR>",
+        desc = "Close live preview of file",
+        mode = { "n", "v" },
+      },
+    },
+  },
+
+  {
+    "y3owk1n/undo-glow.nvim",
+    event = { "VeryLazy" },
+    ---@type UndoGlow.Config
+    opts = {
+      animation = {
+        enabled = true,
+        duration = 300,
+        animtion_type = "zoom",
+        window_scoped = true,
+      },
+      fallback_for_transparency = {
+        bg = "#282828", -- fallback color for when the highlight is transparent
+        fg = "#ebdbb2", -- fallback color for when the highlight is transparent
+      },
+      highlights = {
+        undo = {
+          -- hl_color = { bg = "#693232" }, -- Dark muted red
+          hl_color = { bg = "#d79921" },
+        },
+        redo = {
+          -- hl_color = { bg = "#2F4640" }, -- Dark muted green
+          hl_color = { bg = "#b16286" },
+        },
+        yank = {
+          -- hl_color = { bg = "#7A683A" }, -- Dark muted yellow
+          hl_color = { bg = "#458588" },
+        },
+        paste = {
+          -- hl_color = { bg = "#325B5B" }, -- Dark muted cyan
+          hl_color = { bg = "#689d6a" },
+        },
+        -- search = {
+        --   hl_color = { bg = "#5C475C" }, -- Dark muted purple
+        --   -- hl_color = { bg = "#9900ff" },
+        -- },
+        comment = {
+          -- hl_color = { bg = "#7A5A3D" }, -- Dark muted orange
+          hl_color = { bg = "#665c54" },
+        },
+        cursor = {
+          -- hl_color = { bg = "#793D54" }, -- Dark muted pink
+          hl_color = { bg = "#7c6f64" },
+        },
+      },
+      priority = 2048 * 3,
+    },
+    keys = {
+      {
+        "u",
+        function()
+          require("undo-glow").undo()
+        end,
+        mode = "n",
+        desc = "Undo with highlight",
+        noremap = true,
+      },
+      {
+        "U",
+        function()
+          require("undo-glow").redo()
+        end,
+        mode = "n",
+        desc = "Redo with highlight",
+        noremap = true,
+      },
+      {
+        "p",
+        function()
+          require("undo-glow").paste_below()
+        end,
+        mode = "n",
+        desc = "Paste below with highlight",
+        noremap = true,
+      },
+      {
+        "P",
+        function()
+          require("undo-glow").paste_above()
+        end,
+        mode = "n",
+        desc = "Paste above with highlight",
+        noremap = true,
+      },
+      {
+        "n",
+        function()
+          require("undo-glow").search_next {
+            animation = {
+              animation_type = "strobe",
+            },
+          }
+        end,
+        mode = "n",
+        desc = "Search next with highlight",
+        noremap = true,
+      },
+      {
+        "N",
+        function()
+          require("undo-glow").search_prev {
+            animation = {
+              animation_type = "strobe",
+            },
+          }
+        end,
+        mode = "n",
+        desc = "Search prev with highlight",
+        noremap = true,
+      },
+      {
+        "*",
+        function()
+          require("undo-glow").search_star {
+            animation = {
+              animation_type = "strobe",
+            },
+          }
+        end,
+        mode = "n",
+        desc = "Search star with highlight",
+        noremap = true,
+      },
+      {
+        "#",
+        function()
+          require("undo-glow").search_hash {
+            animation = {
+              animation_type = "strobe",
+            },
+          }
+        end,
+        mode = "n",
+        desc = "Search hash with highlight",
+        noremap = true,
+      },
+      {
+        "gc",
+        function()
+          -- This is an implementation to preserve the cursor position
+          local pos = vim.fn.getpos "."
+          vim.schedule(function()
+            vim.fn.setpos(".", pos)
+          end)
+          return require("undo-glow").comment()
+        end,
+        mode = { "n", "x" },
+        desc = "Toggle comment with highlight",
+        expr = true,
+        noremap = true,
+      },
+      {
+        "gc",
+        function()
+          require("undo-glow").comment_textobject()
+        end,
+        mode = "o",
+        desc = "Comment textobject with highlight",
+        noremap = true,
+      },
+      {
+        "gcc",
+        function()
+          return require("undo-glow").comment_line()
+        end,
+        mode = "n",
+        desc = "Toggle comment line with highlight",
+        expr = true,
+        noremap = true,
+      },
+    },
+    init = function()
+      vim.api.nvim_create_autocmd("TextYankPost", {
+        desc = "Highlight when yanking (copying) text",
+        callback = function()
+          require("undo-glow").yank()
+        end,
+      })
+
+      -- This only handles neovim instance and do not highlight when switching panes in tmux
+      vim.api.nvim_create_autocmd("CursorMoved", {
+        desc = "Highlight when cursor moved significantly",
+        callback = function()
+          require("undo-glow").cursor_moved {
+            animation = {
+              animation_type = "slide",
+            },
+          }
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("CmdLineLeave", {
+        pattern = { "/", "?" },
+        desc = "Highlight when search cmdline leave",
+        callback = function()
+          require("undo-glow").search_cmd {
+            animation = {
+              animation_type = "fade",
+            },
+          }
+        end,
+      })
+    end,
+  },
+
   -- make icon colors match colorscheme
   -- {
   --   "rachartier/tiny-devicons-auto-colors.nvim",
@@ -405,32 +652,32 @@ return {
     cmd = "Trouble",
     keys = {
       {
-        "<leader>td",
+        "<leader>trd",
         "<cmd>Trouble diagnostics toggle<cr>",
         desc = "Diagnostics (Trouble)",
       },
       {
-        "<leader>tD",
+        "<leader>trD",
         "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
         desc = "Buffer Diagnostics (Trouble)",
       },
       {
-        "<leader>ts",
+        "<leader>trs",
         "<cmd>Trouble symbols toggle focus=false<cr>",
         desc = "Symbols (Trouble)",
       },
       {
-        "<leader>tl",
+        "<leader>trl",
         "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
         desc = "LSP Definitions / references / ... (Trouble)",
       },
       {
-        "<leader>tL",
+        "<leader>trL",
         "<cmd>Trouble loclist toggle<cr>",
         desc = "Location List (Trouble)",
       },
       {
-        "<leader>tq",
+        "<leader>trq",
         "<cmd>Trouble qflist toggle<cr>",
         desc = "Quickfix List (Trouble)",
       },
