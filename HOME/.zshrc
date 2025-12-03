@@ -1,4 +1,4 @@
-## ===========================
+# ===========================
 # powerline prompt
 # ===========================
 
@@ -66,6 +66,7 @@ alias gcm="git commit -m"
 
 # neovim
 alias v="nvim"
+alias vc="nvim ~/.local/share/nvim/lazy/base46/lua/base46/themes/gruvbox.lua"
 
 # fzf
 alias ff="fzf --preview 'bat --color=always --style=numbers,changes,header {}' | xargs nvim"
@@ -146,15 +147,15 @@ fi
 if [[ "$(uname)" == "Darwin" ]]; then
  
   # mac python
-  . "$HOME/.local/bin/env"
+  # . "$HOME/.local/bin/env"
   export PYENV_ROOT="$HOME/.pyenv"
   [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init - zsh)"
 
   # mac node.js
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+  # export NVM_DIR="$HOME/.nvm"
+  # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
   # mac postgres
   export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
