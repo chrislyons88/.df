@@ -264,10 +264,10 @@ return {
           -- hl_color = { bg = "#325B5B" }, -- Dark muted cyan
           hl_color = { bg = "#689d6a" },
         },
-        -- search = {
-        --   hl_color = { bg = "#5C475C" }, -- Dark muted purple
-        --   -- hl_color = { bg = "#9900ff" },
-        -- },
+        search = {
+          -- hl_color = { bg = "#5C475C" }, -- Dark muted purple
+          hl_color = { bg = "#7c6f64" },
+        },
         comment = {
           -- hl_color = { bg = "#7A5A3D" }, -- Dark muted orange
           hl_color = { bg = "#665c54" },
