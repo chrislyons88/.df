@@ -1,5 +1,14 @@
 require("nvchad.configs.lspconfig").defaults()
 -- https://github.com/mason-org/mason-lspconfig.nvim/tree/main/lua/mason-lspconfig/lsp
+
+local function is_termux()
+  return os.getenv "PREFIX" ~= nil and string.find(os.getenv "PREFIX", "/data/data/") ~= nil
+end
+
+local function is_macos()
+  return vim.loop.os_uname().sysname == "Darwin"
+end
+
 local servers = {
   -- vim/lua
   "lua_ls",
@@ -25,9 +34,9 @@ local servers = {
   "bashls",
 }
 
-vim.diagnostic.config({
+vim.diagnostic.config {
   virtual_text = false, -- 🔥 REQUIRED
-})
+}
 
 vim.lsp.enable(servers)
 

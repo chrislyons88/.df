@@ -209,7 +209,7 @@ common_post_install_steps() {
   uv tool update-shell
 
   echo "🌐 Installing global npm packages..."
-  npm install -g pnpm@latest-10 mapscii
+  npm install -g pnpm@latest-10 mapscii @bramus/caniuse-cli
 
   echo "🐍 Installing global Python packages..."
 
