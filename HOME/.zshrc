@@ -49,7 +49,7 @@ function md() {
 # viewing files and folders
 alias ls="eza --icons --git --group-directories-first -a"
 alias ll="eza --icons --git --group-directories-first --git -alh"
-alias et="eza --icons ---tree -a"
+alias et="eza --icons --tree -a"
 alias etl="eza --icons --git --group-directories-first --git -alh --tree"
 
 # quick edit config files
