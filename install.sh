@@ -15,7 +15,7 @@ BACKUP_DIR="$BACKUP_DIR_BASE/$(date +%s)"
 # Dependency lists
 # ========================
 
-MACOS_DEPENDENCIES_BASE=" git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm ollama uv pyenv  jaq tealdeer gromgit/brewtils/taproom go"
+MACOS_DEPENDENCIES_BASE=" git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm ollama uv pyenv  jaq tealdeer gromgit/brewtils/taproom go anomalyco/tap/opencode llmfit arimxyer/tap/models"
 TERMUX_DEPENDENCIES_BASE="git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm ollama uv python jq  tealdeer python-numpy matplotlib nodejs rust"
 UBUNTU_DEPENDENCIES_BASE="git stow vim"
 

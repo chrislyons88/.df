@@ -34,6 +34,7 @@ source <(fzf --zsh) # Set up fzf key bindings and fuzzy completion
 # ========================
 # PATH changes
 # ========================
+export PATH="$PATH:$HOME/.volta/bin"
 
 # ========================
 #  aliases and functions
@@ -49,8 +50,8 @@ function md() {
 # viewing files and folders
 alias ls="eza --icons --git --group-directories-first -a"
 alias ll="eza --icons --git --group-directories-first --git -alh"
-alias et="eza --icons --tree -a"
-alias etl="eza --icons --git --group-directories-first --git -alh --tree"
+alias et="eza --icons --tree -a --git-ignore"
+alias etl="eza --icons --git --group-directories-first --git-ignore -alh --tree"
 
 # quick edit config files
 alias rc="nvim ~/.zshrc && source ~/.zshrc"

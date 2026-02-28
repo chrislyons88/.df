@@ -19,10 +19,11 @@ local servers = {
   -- "cssls",
   -- "vuels",
   -- "svelte",
-  -- "astro-language-server",
+  "biome",
+  "astro-language-server",
   "tailwindcss",
   "vtsls",
-  -- "eslint",
+  "eslint",
 
   -- python
   "basedpyright",
