@@ -32,6 +32,42 @@ return {
     opts = require "configs.conform",
   },
 
+  -- adjust telescope live grep and find to include hidden files but respect .gitignore by default
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      defaults = {
+        -- affects live_grep (leader fw) and grep-like pickers
+        vimgrep_arguments = {
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+
+          "--hidden",
+          "--glob",
+          "!.git/*",
+        },
+      },
+
+      pickers = {
+        -- affects find_files (leader ff)
+        find_files = {
+          find_command = {
+            "rg",
+            "--files",
+            "--hidden",
+            "--glob",
+            "!.git/*",
+          },
+        },
+      },
+    },
+  },
+
   -- ===================================
   -- Additional plugins
   -- ===================================
