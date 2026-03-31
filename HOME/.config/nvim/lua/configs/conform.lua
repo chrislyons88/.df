@@ -7,6 +7,7 @@ local options = {
     javascript = { "biome" },
     typescript = { "biome" },
     typescriptreact = { "biome" },
+    svelte = { "prettier" },
   },
 
   format_on_save = {

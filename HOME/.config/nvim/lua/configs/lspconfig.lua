@@ -18,12 +18,12 @@ local servers = {
   -- "html",
   -- "cssls",
   -- "vuels",
-  -- "svelte",
+  "eslint",
   "biome",
   "astro-language-server",
   "tailwindcss",
   "vtsls",
-  "eslint",
+  "svelte",
 
   -- python
   "basedpyright",

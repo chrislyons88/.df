@@ -6,6 +6,7 @@ require("lint").linters_by_ft = {
   javascript = { "biome" },
   typescript = { "biome" },
   typescriptreact = { "biome" },
+  svelte = { "eslint_d" },
   -- vue = { "eslint_d" },
 }
 

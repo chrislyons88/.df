@@ -41,6 +41,12 @@ local options = {
     "sql",
   },
   auto_install = true, -- Enable automatic installation of missing parsers
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+  },
 }
 
 return options

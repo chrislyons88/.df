@@ -85,7 +85,7 @@ install_dependencies_macos() {
 
   echo "🐍 Installing Python 3.12 via pyenv..."
   eval "$(pyenv init - zsh)"
-  pyenv install 3.12 && pyenv global 3.12
+  pyenv install 3.14 && pyenv global 3.14
 
   echo "🦀 Installing Rust via rustup..."
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -125,6 +125,7 @@ install_dependencies_macos() {
   # brew install ollama
   # ollama serve
   # ollama pull deepseek-coder-v2:16b
+  # ollama pull qwen2.5-coder:7b-instruct
 }
 
 install_dependencies_termux() {

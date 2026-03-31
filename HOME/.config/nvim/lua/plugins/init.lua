@@ -6,9 +6,10 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter",
-    config = function()
-      require "configs.treesitter"
-    end,
+    -- config = function()
+    --   require "configs.treesitter"
+    -- end,
+    opts = require "configs.treesitter",
   },
 
   {
@@ -814,11 +815,43 @@ return {
     opts = {
       strategies = {
         -- Local model (Ollama)
+        -- chat = {
+        --   adapter = "ollama",
+        --   -- model = "codellama:7b-instruct",
+        --   model = "deepseek-coder-v2:16b",
+        -- },
         chat = {
           adapter = "ollama",
-          -- model = "codellama:7b-instruct",
-          model = "deepseek-coder-v2:16b",
         },
+        inline = {
+          adapter = "ollama",
+        },
+        agent = {
+          adapter = "ollama",
+        },
+      },
+      adapters = {
+        ollama = function()
+          return require("codecompanion.adapters").extend("ollama", {
+            env = {
+              url = "http://127.0.0.1:11434",
+            },
+            schema = {
+              model = {
+                default = "qwen2.5-coder:7b-instruct",
+              },
+              num_ctx = {
+                default = 8192,
+              },
+              temperature = {
+                default = 0.2, -- better for refactors / deterministic answers
+              },
+              top_p = {
+                default = 0.9,
+              },
+            },
+          })
+        end,
       },
     },
     keys = {
