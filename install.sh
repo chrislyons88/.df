@@ -14,9 +14,9 @@ BACKUP_DIR="$BACKUP_DIR_BASE/$(date +%s)"
 # ========================
 # Dependency lists
 # ========================
-
-MACOS_DEPENDENCIES_BASE=" git gh stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm ollama uv pyenv  jaq tealdeer gromgit/brewtils/taproom go anomalyco/tap/opencode llmfit arimxyer/tap/models font-meslo-lg-nerd-font mise zsh-autosuggestions zsh-syntax-highlighting zsh-completions glab k9s"
-TERMUX_DEPENDENCIES_BASE="git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm ollama uv python jq  tealdeer python-numpy matplotlib nodejs rust"
+# TODO: re-organize the deps
+MACOS_DEPENDENCIES_BASE=" git gh stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm ollama uv pyenv  jaq tealdeer gromgit/brewtils/taproom go anomalyco/tap/opencode llmfit arimxyer/tap/models font-meslo-lg-nerd-font mise zsh-autosuggestions zsh-syntax-highlighting zsh-completions glab k9s litecli rainfrog"
+TERMUX_DEPENDENCIES_BASE="git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm ollama uv python jq  tealdeer python-numpy matplotlib nodejs rust sqlite"
 UBUNTU_DEPENDENCIES_BASE="git stow vim"
 
 MACOS_DEPENDENCIES_EXTRA=" fastfetch whois nmap pastel lynx dust duf dua-cli nushell postgresql@18 wireshark termshark lazydocker posting btop"
@@ -96,12 +96,13 @@ install_dependencies_macos() {
     brew update --quiet
     brew install --quiet --cask \
       ghostty rectangle logi-options+ \
+      notion ticktick wispr-flow obsidian \
       google-chrome firefox \
       visual-studio-code ollama-app \
       docker-desktop wireshark-app pgadmin4 postman \
-      claude claude-code \
-      1password 1password-cli notion microsoft-teams figma obsidian \
-      mongodb-compass dbeaver-community
+      claude claude-code@latest 
+    # used for jobs
+      # microsoft-teams 1password 1password-cli figma \
       >/dev/null 2>&1
     echo "✅ Finished installing cask apps (ignored errors)."
   ) || echo "⚠️  Continuing despite cask install warnings..."

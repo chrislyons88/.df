@@ -18,6 +18,7 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 # environment variables
 # ========================
 export XDG_CONFIG_HOME="$HOME/.config"
+# export TERM=xterm-256color # changed for remote dev box NOTE: look into whether this is the correct choice
 export EDITOR=nvim
 export VISUAL=nvim
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
