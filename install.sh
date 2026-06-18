@@ -15,7 +15,7 @@ BACKUP_DIR="$BACKUP_DIR_BASE/$(date +%s)"
 # Dependency lists
 # ========================
 
-MACOS_DEPENDENCIES_BASE=" git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm ollama uv pyenv  jaq tealdeer gromgit/brewtils/taproom go anomalyco/tap/opencode llmfit arimxyer/tap/models"
+MACOS_DEPENDENCIES_BASE=" git gh stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm ollama uv pyenv  jaq tealdeer gromgit/brewtils/taproom go anomalyco/tap/opencode llmfit arimxyer/tap/models font-meslo-lg-nerd-font mise zsh-autosuggestions zsh-syntax-highlighting zsh-completions glab k9s"
 TERMUX_DEPENDENCIES_BASE="git stow vim neovim tmux eza bat zoxide ripgrep fd fzf lazygit yazi htop pnpm ollama uv python jq  tealdeer python-numpy matplotlib nodejs rust"
 UBUNTU_DEPENDENCIES_BASE="git stow vim"
 
@@ -98,7 +98,10 @@ install_dependencies_macos() {
       ghostty rectangle logi-options+ \
       google-chrome firefox \
       visual-studio-code ollama-app \
-      docker-desktop wireshark-app pgadmin4 postman
+      docker-desktop wireshark-app pgadmin4 postman \
+      claude claude-code \
+      1password 1password-cli notion microsoft-teams figma obsidian \
+      mongodb-compass dbeaver-community
       >/dev/null 2>&1
     echo "✅ Finished installing cask apps (ignored errors)."
   ) || echo "⚠️  Continuing despite cask install warnings..."
@@ -187,8 +190,12 @@ common_post_install_steps() {
   tldr --update
 
   echo "🎨 Installing Yazi gruvbox-dark theme..."
-  if ! ya pkg add bennyyip/gruvbox-dark; then
-    echo "⚠️  Yazi theme already installed or failed to install — continuing..."
+  if ya pkg list | grep -q "bennyyip/gruvbox-dark"; then
+    echo "✓ Theme already installed"
+  else
+    ya pkg add bennyyip/gruvbox-dark && \
+    echo "✓ Theme installed" || \
+    echo "✗ Failed to install theme"
   fi
 
   echo "💎 Installing Powerlevel10k prompt..."
@@ -202,6 +209,9 @@ common_post_install_steps() {
     fi
   fi
 
+  echo "📦 Installing tmux plugin manager"
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
   echo "📁 Creating ~/code directory..."
   mkdir -p "$HOME/code"
 
@@ -210,7 +220,7 @@ common_post_install_steps() {
   uv tool update-shell
 
   echo "🌐 Installing global npm packages..."
-  npm install -g pnpm@latest-10 mapscii @bramus/caniuse-cli
+  npm install -g pnpm@latest-10 mapscii @bramus/caniuse-cli tree-sitter-cli
 
   echo "🐍 Installing global Python packages..."
 

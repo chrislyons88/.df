@@ -20,7 +20,9 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 export XDG_CONFIG_HOME="$HOME/.config"
 export EDITOR=nvim
 export VISUAL=nvim
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # export BAT_THEME="gruvbox-dark"
+export K9S_SKIN="gruvbox-dark"
 
 # add anything that shouldn't be in the repo to ~/.secrets
 [[ -f "$HOME/.secrets" ]] && source "$HOME/.secrets"
@@ -29,6 +31,7 @@ export VISUAL=nvim
 # global tool evals & sources
 # ============================
 eval "$(zoxide init zsh)" # zoxide init
+# source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 source <(fzf --zsh) # Set up fzf key bindings and fuzzy completion
 
 # ========================
@@ -49,9 +52,9 @@ function md() {
 
 # viewing files and folders
 alias ls="eza --icons --git --group-directories-first -a"
-alias ll="eza --icons --git --group-directories-first --git -alh"
-alias et="eza --icons --tree -a --git-ignore"
-alias etl="eza --icons --git --group-directories-first --git-ignore -alh --tree"
+alias ll="eza --icons --git --group-directories-first -alh"
+alias et="eza --icons --git --group-directories-first -a --tree --git-ignore"
+alias etl="eza --icons --git --group-directories-first -alh --tree --git-ignore"
 
 # quick edit config files
 alias rc="nvim ~/.zshrc && source ~/.zshrc"
@@ -61,16 +64,36 @@ alias sshc="nvim ~/.ssh/config"
 
 # git aliases
 alias gs="git status"
-alias gl="git log"
+alias gl="git log --pretty=format:\"%C(auto)%h %C(green)%ad %C(auto)%d %C(blue)%an %C(reset)%s\" --date=human"
 alias ga="git add"
 alias gcm="git commit -m"
+alias gd="git diff"
+alias gc="git checkout"
 
 # neovim
 alias v="nvim"
 alias vc="nvim ~/.local/share/nvim/lazy/base46/lua/base46/themes/gruvbox.lua"
 
+function fdd() { find . -name "*$1*" | grep --color=always "$1" }
+
 # fzf
 alias ff="fzf --preview 'bat --color=always --style=numbers,changes,header {}' | xargs nvim"
+alias fff="fzf --style full --preview 'bat --color=always --style=numbers,changes,header {}' \
+  --bind 'focus:transform-header:file --brief {}' | xargs nvim"
+function fww() {
+  local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+  local INITIAL_QUERY="${*:-}"
+  fzf --ansi --disabled --query "$INITIAL_QUERY" \
+    --bind "start:reload:$RG_PREFIX {q}" \
+    --bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
+    --bind "alt-enter:unbind(change,alt-enter)+change-prompt(2. fzf> )+enable-search+clear-query" \
+    --color "hl:-1:underline,hl+:-1:underline:reverse" \
+    --prompt '1. ripgrep> ' \
+    --delimiter : \
+    --preview 'bat --color=always {1} --highlight-line {2}' \
+    --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+    --bind 'enter:become(vim {1} +{2})'
+}
 function fw() {
   local query="${*:-}"
   local selected file line
@@ -160,10 +183,36 @@ if [[ "$(uname)" == "Darwin" ]]; then
 
   # mac postgres
   export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
+
+  # mise
+  eval "$(mise activate zsh)"
 fi
 
+# ensure emacs bindings are used in tmux
+bindkey -e
+
+# ============================================
+# zsh autosuggestions & syntax highlighting
+# (installed via brew; guarded for non-mac envs)
+# autosuggestions must be sourced BEFORE syntax
+# highlighting, which must be sourced LAST.
+# ============================================
+for _zsh_share in /opt/homebrew/share /usr/share /home/linuxbrew/.linuxbrew/share /data/data/com.termux/files/usr/share; do
+  [[ -f "$_zsh_share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] \
+    && source "$_zsh_share/zsh-autosuggestions/zsh-autosuggestions.zsh" && break
+done
+unset _zsh_share
 
 # ==================================
 # beyond here be auto-added configs
 # ==================================
+
+
+# zsh-syntax-highlighting MUST be sourced last (after all widgets/auto-added
+# configs). If a tool appends config below this line, move this block down.
+for _zsh_share in /opt/homebrew/share /usr/share /home/linuxbrew/.linuxbrew/share /data/data/com.termux/files/usr/share; do
+  [[ -f "$_zsh_share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] \
+    && source "$_zsh_share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" && break
+done
+unset _zsh_share
 

@@ -82,15 +82,70 @@ return {
 
       -- Add a new option or change an existing one
       -- opts.numhl = true
-      opts.word_diff = true -- Toggle with `:Gitsigns toggle_word_diff`
+      -- opts.word_diff = true -- Toggle with `:Gitsigns toggle_word_diff`
       opts.current_line_blame = true -- Toggle with `:Gitsigns toggle_current_line_blame`
       opts.current_line_blame_opts = {
         virt_text_pos = "right_align", -- 'eol' | 'overlay' | 'right_align'
         delay = 666,
       }
 
+      -- NvChad's default gitsigns config only sets signs; it has no on_attach,
+      -- so hunk-navigation keymaps don't exist. Add them here.
+      opts.on_attach = function(bufnr)
+        local gs = require "gitsigns"
+        local function map(mode, l, r, desc)
+          vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+        end
+
+        -- `target = "all"` navigates both staged and unstaged hunks; the
+        -- default ("unstaged") skips hunks once they've been staged.
+        map("n", "]c", function()
+          if vim.wo.diff then
+            vim.cmd.normal { "]c", bang = true }
+          else
+            gs.nav_hunk("next", { target = "all" })
+          end
+        end, "Jump to next git hunk")
+
+        map("n", "[c", function()
+          if vim.wo.diff then
+            vim.cmd.normal { "[c", bang = true }
+          else
+            gs.nav_hunk("prev", { target = "all" })
+          end
+        end, "Jump to previous git hunk")
+      end
+
       return opts
     end,
+  },
+
+  -- diffview
+  {
+    "sindrets/diffview.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    cmd = {
+      "DiffviewOpen",
+      "DiffviewClose",
+      "DiffviewFileHistory",
+    },
+    keys = {
+      {
+        "<leader>dv",
+        function()
+          local lib = require "diffview.lib"
+
+          if next(lib.views) == nil then
+            vim.cmd "DiffviewOpen"
+          else
+            vim.cmd "DiffviewClose"
+          end
+        end,
+        desc = "Toggle Diffview",
+      },
+    },
   },
 
   {
@@ -136,33 +191,33 @@ return {
   },
 
   -- Code minimap on right side
-  {
-    "gorbit99/codewindow.nvim",
-    event = "VeryLazy",
-    config = function()
-      local codewindow = require "codewindow"
-      codewindow.setup {
-        -- active_in_terminals = false, -- Should the minimap activate for terminal buffers
-        -- auto_enable = false, -- Automatically open the minimap when entering a (non-excluded) buffer (accepts a table of filetypes)
-        -- exclude_filetypes = { "help" }, -- Choose certain filetypes to not show minimap on
-        -- max_minimap_height = nil, -- The maximum height the minimap can take (including borders)
-        -- max_lines = nil, -- If auto_enable is true, don't open the minimap for buffers which have more than this many lines.
-        minimap_width = 12, -- The width of the text part of the minimap
-        -- use_lsp = true, -- Use the builtin LSP to show errors and warnings
-        -- use_treesitter = true, -- Use nvim-treesitter to highlight the code
-        -- use_git = true, -- Show small dots to indicate git additions and deletions
-        width_multiplier = 3, -- How many characters one dot represents
-        -- z_index = 1, -- The z-index the floating window will be on
-        -- show_cursor = true, -- Show the cursor position in the minimap
-        screen_bounds = "background", -- How the visible area is displayed, "lines": lines above and below, "background": background color
-        window_border = "none", -- The border style of the floating window (accepts all usual options)
-        -- relative = "win", -- What will be the minimap be placed relative to, "win": the current window, "editor": the entire editor
-        -- events = { "TextChanged", "InsertLeave", "DiagnosticChanged", "FileWritePost" }, -- Events that update the code window
-      }
-      codewindow.apply_default_keybinds()
-    end,
-  },
-
+  -- {
+  --   "gorbit99/codewindow.nvim",
+  --   event = "VeryLazy",
+  --   config = function()
+  --     local codewindow = require "codewindow"
+  --     codewindow.setup {
+  --       -- active_in_terminals = false, -- Should the minimap activate for terminal buffers
+  --       -- auto_enable = false, -- Automatically open the minimap when entering a (non-excluded) buffer (accepts a table of filetypes)
+  --       -- exclude_filetypes = { "help" }, -- Choose certain filetypes to not show minimap on
+  --       -- max_minimap_height = nil, -- The maximum height the minimap can take (including borders)
+  --       -- max_lines = nil, -- If auto_enable is true, don't open the minimap for buffers which have more than this many lines.
+  --       minimap_width = 12, -- The width of the text part of the minimap
+  --       -- use_lsp = true, -- Use the builtin LSP to show errors and warnings
+  --       -- use_treesitter = true, -- Use nvim-treesitter to highlight the code
+  --       -- use_git = true, -- Show small dots to indicate git additions and deletions
+  --       width_multiplier = 3, -- How many characters one dot represents
+  --       -- z_index = 1, -- The z-index the floating window will be on
+  --       -- show_cursor = true, -- Show the cursor position in the minimap
+  --       screen_bounds = "background", -- How the visible area is displayed, "lines": lines above and below, "background": background color
+  --       window_border = "none", -- The border style of the floating window (accepts all usual options)
+  --       -- relative = "win", -- What will be the minimap be placed relative to, "win": the current window, "editor": the entire editor
+  --       -- events = { "TextChanged", "InsertLeave", "DiagnosticChanged", "FileWritePost" }, -- Events that update the code window
+  --     }
+  --     codewindow.apply_default_keybinds()
+  --   end,
+  -- },
+  --
   -- https://github.com/jbyuki/venn.nvim?tab=readme-ov-file#usage
   {
     "jbyuki/venn.nvim",
@@ -213,6 +268,15 @@ return {
     "rachartier/tiny-inline-diagnostic.nvim",
     event = "VeryLazy",
     priority = 1000,
+    keys = {
+      {
+        "<leader>tl",
+        function()
+          require("tiny-inline-diagnostic").toggle()
+        end,
+        desc = "Toggle inline diagnostics",
+      },
+    },
     config = function()
       require("tiny-inline-diagnostic").setup {
         options = {
@@ -267,6 +331,17 @@ return {
         mode = { "n", "v" },
       },
     },
+  },
+
+  -- install with yarn or npm
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && yarn install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    ft = { "markdown" },
   },
 
   {
